@@ -1,8 +1,11 @@
+import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import Head from "next/head";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import HeaderNoAuth from "../components/HeaderNoAuth";
 
 export default function Home() {
+  const router = useRouter();
   return (
     <div className={`h-screen bg-gray-800`}>
       <Head>
@@ -12,7 +15,26 @@ export default function Home() {
       </Head>
       <div>
         <HeaderNoAuth />
-        <div className="">{/* //welcomebody */}</div>
+        <div className="flex flex-col items-center justify-center h-[80vh] space-y-3">
+          <div className="p-40 rounded-full bg-slate-200">
+            <Image
+              src="/favicon.ico"
+              height={100}
+              width={100}
+              alt="wt"
+              className="pt-5 pb-0 hover:pb-5 hover:pt-0 "
+            />
+          </div>
+          <h1
+            className="flex text-lg font-semibold items-end text-blue-200 p-4 hover:bg-gray-600 rounded-2xl cursor-pointer"
+            onClick={() => router.push("/dashboard")}
+          >
+            Ready to workout?!!
+            <span>
+              <ArrowRightIcon className="ml-7 h-7 w-7" />
+            </span>
+          </h1>
+        </div>
       </div>
     </div>
   );
