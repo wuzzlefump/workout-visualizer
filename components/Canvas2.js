@@ -6,7 +6,10 @@ import { getAudioURl } from "../utils/getAudioUrl";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { HeartIcon as SolidHeartIcon } from "@heroicons/react/24/solid";
 import { useTimer } from "react-timer-hook";
-function Canvas({ workout, session, likes }) {
+import ReactAudioPlayer from "react-audio-player";
+import { motion } from "framer-motion";
+
+function Canvas2({ workout, session, likes }) {
   let canvasRef = createRef();
   let audioRef = createRef();
   let [exerciseIndex, setExerciseIndex] = useState(0);
@@ -41,55 +44,6 @@ function Canvas({ workout, session, likes }) {
     onExpire: () => console.warn("onExpire called"),
     autoStart: false,
   });
-
-  let createVisualization = () => {
-    // var AudioContext = window.AudioContext || window.webkitAudioContext;
-    var context = new AudioContext();
-    setContextState(context.state);
-    const btnResume = document.getElementById("resume");
-    btnResume.addEventListener("click", () => {
-      context.resume().then(() => {
-        setContextState(context.state);
-      });
-    });
-    const btnSuspend = document.getElementById("suspend");
-    btnSuspend.addEventListener("click", () => {
-      context.suspend().then(() => {
-        setContextState(context.state);
-      });
-    });
-
-    let analyser = context.createAnalyser();
-    let canvas = canvasRef.current;
-    let ctx = canvas.getContext("2d");
-    let audio = audioRef.current;
-    audio.volume = "0.1";
-    audio.crossOrigin = "anonymous";
-    let audioSrc = context.createMediaElementSource(audio);
-    audioSrc.connect(analyser);
-    audioSrc.connect(context.destination);
-    analyser.connect(context.destination);
-
-    function renderFrame() {
-      let freqData = new Uint8Array(analyser.frequencyBinCount);
-      requestAnimationFrame(renderFrame);
-      analyser.getByteFrequencyData(freqData);
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      // console.log(freqData)
-      ctx.fillStyle = "#9933ff";
-      let bars = 100;
-      for (var i = 0; i < bars; i++) {
-        let bar_x = i * 3;
-        let bar_width = 2;
-        let bar_height = -(freqData[i] / 2);
-        ctx.fillRect(bar_x, canvas.height, bar_width, bar_height);
-      }
-    }
-    renderFrame();
-  };
-  let doResume = () => {
-    context.resume().then(console.log("resume started"));
-  };
 
   const playNext = () => {
     const index = songIndex;
@@ -152,10 +106,7 @@ function Canvas({ workout, session, likes }) {
     return;
   };
 
-  useEffect(() => {
-    createVisualization();
-    console.log(totalTime);
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <div className="App">
@@ -167,38 +118,6 @@ function Canvas({ workout, session, likes }) {
             <span>{seconds}</span>
           </div>
           <div className="flex flex-row items-center justify-between p-2">
-            <CountdownCircleTimer
-              key={exerciseIndex}
-              isPlaying={timerState}
-              duration={startTime}
-              // up
-
-              onComplete={() => {
-                if (workout.exercises.length - 1 !== exerciseIndex) {
-                  setExerciseIndex(exerciseIndex + 1);
-                  setStartTime(
-                    workout.exercises[exerciseIndex + 1].duration || 0
-                  );
-                  if ("speechSynthesis" in window) {
-                    var msg = new SpeechSynthesisUtterance();
-                    msg.text =
-                      "switch to " + workout.exercises[exerciseIndex + 1].title;
-                    window.speechSynthesis.speak(msg);
-                  }
-                  return { shouldRepeat: false };
-                } else {
-                  return { shouldRepeat: false };
-                }
-              }}
-              // onUpdate={}
-              size={80}
-              colors={["cyan"]}
-            >
-              {({ remainingTime }) => {
-                return remainingTime;
-              }}
-            </CountdownCircleTimer>
-
             <h1 className="mx-auto flex font-bold text-xl">
               {workout.title}
 
@@ -231,7 +150,7 @@ function Canvas({ workout, session, likes }) {
               </span>
             </h1>
 
-            <audio
+            {/* <audio
               className=" bottom-0 "
               onPlay={() => {
                 setTimerState(true);
@@ -245,34 +164,89 @@ function Canvas({ workout, session, likes }) {
                 playNext();
                 console.log(song);
               }}
-              ref={audioRef}
               autoPlay={songIndex !== 0 ? true : false}
               controls={true}
               src={song}
-            />
-
-            <button className="hidden z-1" id="resume">
-              resume
-            </button>
-            <button className="hidden z-1" id="suspend">
-              suspend
-            </button>
+            /> */}
           </div>
-          <div className="flex flex-col items-center justify-start space-y-4">
-            <h1 className="text-6xl font-extrabold pt-20">
+          <div
+            className={`flex flex-col items-center justify-start space-y-10  `}
+          >
+            <h1 className={`text-6xl font-extrabold pt-20 pb-24 `}>
               {workout.exercises[exerciseIndex].title}
             </h1>
+            <motion.div
+              initial={{
+                opacity: 0,
+              }}
+              animate={{
+                opacity: [0.1, 0.2, 0.4, 0.8, 0.1, 1.0],
+                scale: [1, 2, 2, 3, 1],
+                borderRadius: ["20%", "20%", "50%", "80%", "20%"],
+              }}
+              transition={{
+                duration: 2.5,
+              }}
+              className=" w-[100%] z-0 top-[30px] relative flex justify-center items-center "
+            >
+              <div className=" absolute border border-[#333333] rounded-full h-[200px] w-[200px] animate-pulse mt-52" />
+              <div className=" absolute border border-[#333333] rounded-full h-[400px] w-[400px] animate-pulse mt-52" />
+              <div className=" h-[450px] w-[450px] absolute border border-white rounded-full md:h-[450px] md:w-[450px] mt-52 animate-pulse" />
+            </motion.div>
+            <CountdownCircleTimer
+              key={exerciseIndex}
+              isPlaying={timerState}
+              duration={startTime}
+              // up
+
+              onComplete={() => {
+                if (workout.exercises.length - 1 !== exerciseIndex) {
+                  setExerciseIndex(exerciseIndex + 1);
+                  setStartTime(
+                    workout.exercises[exerciseIndex + 1].duration || 0
+                  );
+                  if ("speechSynthesis" in window) {
+                    var msg = new SpeechSynthesisUtterance();
+                    msg.text =
+                      "switch to " + workout.exercises[exerciseIndex + 1].title;
+                    window.speechSynthesis.speak(msg);
+                  }
+                  return { shouldRepeat: false };
+                } else {
+                  return { shouldRepeat: false };
+                }
+              }}
+              // onUpdate={}
+              size={200}
+              colors={["cyan"]}
+            >
+              {({ remainingTime }) => {
+                return remainingTime;
+              }}
+            </CountdownCircleTimer>
+
+            <ReactAudioPlayer
+              src={song}
+              controls
+              onPlay={() => {
+                setTimerState(true);
+                start();
+              }}
+              onPause={() => {
+                setTimerState(false);
+                pause();
+              }}
+              onEnded={() => {
+                playNext();
+                console.log(song);
+              }}
+              autoPlay={songIndex !== 0 ? true : false}
+            />
           </div>
         </div>
-
-        <canvas
-          className="absolute top-0 left-0  z-[0] h-[95vh] w-[100%]"
-          ref={canvasRef}
-          id="analyzer"
-        />
       </div>
     </div>
   );
 }
 
-export default Canvas;
+export default Canvas2;

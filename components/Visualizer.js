@@ -10,6 +10,7 @@ import React, {
 import Loading from "./Loading";
 
 const Canvas = dynamic(() => import("./Canvas"), { ssr: false });
+const Canvas2 = dynamic(() => import("./Canvas2"), { ssr: false });
 
 function Visualizer({ workout, likes, session }) {
   return (
@@ -19,10 +20,7 @@ function Visualizer({ workout, likes, session }) {
           <Canvas session={session} likes={likes} workout={workout} />
         )}
         {window.chrome && (
-          <p className="h-screen w-[100%] flex flex-col text-center justify-center items-center text-semibold">
-            unfortunately audio visualizer does not run on Chrome, please try
-            using another browser like firefox{" "}
-          </p>
+          <Canvas2 session={session} likes={likes} workout={workout} />
         )}
       </Suspense>
     </div>

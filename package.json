@@ -28,6 +28,7 @@
     "react-countdown-circle-timer": "^3.0.9",
     "react-dom": "18.2.0",
     "react-switch": "^7.0.0",
+    "react-timer-hook": "^3.0.5",
     "standardized-audio-context": "^25.3.33"
   },
   "devDependencies": {
