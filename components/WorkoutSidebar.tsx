@@ -44,7 +44,7 @@ function WorkoutSidebar({ workouts, likes, session }: Props) {
   };
 
   return (
-    <div className="flex-[0.45]  min-h-[screen] h-[fill]  min-w-[300] sm:max-w-[350] overflow-y-auto">
+    <div className="flex-[0.45]  min-h-[screen] h-[fill]  min-w-[300] w-[100%] sm:max-w-[350] overflow-y-auto">
       <div className="flex border-t border-b items-center space-x-2 p-[20px]">
         <MagnifyingGlassCircleIcon className="h-8 w-8 text-gray-400" />
         <input
