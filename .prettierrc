@@ -1,0 +1,9 @@
+{
+  "prettier.configPath": "./.prettierrc",
+  "prettier.documentSelectors": ["**/*.ts", "**/*.js"],
+  "prettier.enable": true,
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "editor.insertSpaces": false,
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+}
