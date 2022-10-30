@@ -21,7 +21,7 @@ function Dashboard({ session, workouts, likes }: Props) {
         <div className="min-w-[300px]">
           <WorkoutSidebar session={session} workouts={workouts} />
         </div>
-        <div className="text-blue-200 min-h-[94vh] h-fit border-l border-l-slate-100 text-center flex-1">
+        <div className="hidden sm:contents text-blue-200 min-h-[94vh] h-fit border-l border-l-slate-100 text-center flex-1">
           no workout selected
         </div>
       </div>
