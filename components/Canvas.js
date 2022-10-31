@@ -231,6 +231,18 @@ function Canvas({ workout, session, likes }) {
               </span>
             </h1>
 
+            <button className="hidden z-1" id="resume">
+              resume
+            </button>
+            <button className="hidden z-1" id="suspend">
+              suspend
+            </button>
+          </div>
+          <div className="flex flex-col items-center justify-start space-y-4">
+            <h1 className="text-6xl font-extrabold pt-20">
+              {workout.exercises[exerciseIndex].title}
+            </h1>
+
             <audio
               className=" bottom-0 "
               onPlay={() => {
@@ -250,18 +262,6 @@ function Canvas({ workout, session, likes }) {
               controls={true}
               src={song}
             />
-
-            <button className="hidden z-1" id="resume">
-              resume
-            </button>
-            <button className="hidden z-1" id="suspend">
-              suspend
-            </button>
-          </div>
-          <div className="flex flex-col items-center justify-start space-y-4">
-            <h1 className="text-6xl font-extrabold pt-20">
-              {workout.exercises[exerciseIndex].title}
-            </h1>
           </div>
         </div>
 
