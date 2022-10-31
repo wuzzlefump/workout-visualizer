@@ -18,7 +18,7 @@ function Dashboard({ session, workouts, likes }: Props) {
     <div className="h-screen bg-gray-800 overflow-y-auto">
       <Header session={session} />
       <div className="flex">
-        <div className="min-w-[300px]">
+        <div className=" min-w-[100%] sm:min-w-[300px] sm:border-r sm:h-[100vh]  ">
           <WorkoutSidebar session={session} workouts={workouts} />
         </div>
         <div className="hidden sm:contents text-blue-200 min-h-[94vh] h-fit border-l border-l-slate-100 text-center flex-1">
