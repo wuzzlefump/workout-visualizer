@@ -43,6 +43,16 @@ function WorkoutSidebar({ workouts, likes, session }: Props) {
     }
   };
 
+  const filterPrivate = (workouts: TWorkout[]) => {
+    if (session?.name === "Paul") {
+      return workouts;
+    } else {
+      return workouts.filter((x) => {
+        return !x.private;
+      });
+    }
+  };
+
   return (
     <div className=" flex-1 sm:flex-[0.45]  min-h-[screen] h-[fill]  min-w-[300] w-[100%] sm:max-w-[350] overflow-y-auto">
       <div className="flex border-t border-b items-center space-x-2 p-[20px]">
@@ -67,7 +77,7 @@ function WorkoutSidebar({ workouts, likes, session }: Props) {
         </div>
       )}
 
-      {filterLiked(filteredWorkouts(search), likes)?.map((x) => {
+      {filterPrivate(filterLiked(filteredWorkouts(search), likes))?.map((x) => {
         return (
           <div
             onClick={() => router.push("/dashboard/" + x._id)}

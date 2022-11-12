@@ -46,6 +46,7 @@ export interface TWorkout extends SanityBody {
   mainImage: TImage;
   Exercises: TExercise[];
   playlist: TPlaylist;
+  private?: boolean;
 }
 
 export interface TLike extends SanityBody {

@@ -262,6 +262,11 @@ function Canvas({ workout, session, likes }) {
               controls={true}
               src={song}
             />
+            <h1 className="text-xs font-extrabold pt-20">
+              <span> Next Up:</span>
+              {exerciseIndex + 1 < workout.exercises.length &&
+                workout.exercises[exerciseIndex + 1].title}
+            </h1>
           </div>
         </div>
 
