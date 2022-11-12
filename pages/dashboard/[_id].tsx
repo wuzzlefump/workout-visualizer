@@ -29,10 +29,10 @@ function SpecificWorkout({ currentWorkout, session, workouts, likes }: Props) {
     <div className="h-screen bg-gray-800 overflow-y-auto">
       <Header session={session} />
       <div className="flex">
-        <div className="hidden sm:contents min-w-[300px]">
+        <div className="hidden sm:grid min-w-[100%] sm:min-w-[300px] max-w-[350px] sm:border-r  max-h-[97vh]  overflow-auto ">
           <WorkoutSidebar session={session} workouts={workouts} likes={likes} />
         </div>
-        <div className="text-blue-200 min-h-[94vh] h-fit border-l border-l-slate-100 text-center flex-1">
+        <div className="text-blue-200 min-h-[94vh] h-fit border-l border-l-slate-100 text-center flex-1 ove">
           {currentWorkout ? (
             <WorkoutPageBody
               session={session}
