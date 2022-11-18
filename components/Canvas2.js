@@ -213,6 +213,11 @@ function Canvas2({ workout, session, likes }) {
                   }
                   return { shouldRepeat: false };
                 } else {
+                  if ("speechSynthesis" in window) {
+                    var msg = new SpeechSynthesisUtterance();
+                    msg.text = "You Have Finished The Workout";
+                    window.speechSynthesis.speak(msg);
+                  }
                   return { shouldRepeat: false };
                 }
               }}
