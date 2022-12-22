@@ -1,6 +1,5 @@
 import { AudioContext } from "standardized-audio-context";
 import React, { createRef, PureComponent, useEffect, useState } from "react";
-import { useCountdown } from "react-countdown-circle-timer";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import { getAudioURl } from "../utils/getAudioUrl";
 import { HeartIcon } from "@heroicons/react/24/outline";
@@ -175,24 +174,11 @@ function Canvas2({ workout, session, likes }) {
             <h1 className={`text-6xl font-extrabold pt-20 pb-24 `}>
               {workout.exercises[exerciseIndex].title}
             </h1>
-            <motion.div
-              initial={{
-                opacity: 0,
-              }}
-              animate={{
-                opacity: [0.1, 0.2, 0.4, 0.8, 0.1, 1.0],
-                scale: [1, 2, 2, 3, 1],
-                borderRadius: ["20%", "20%", "50%", "80%", "20%"],
-              }}
-              transition={{
-                duration: 2.5,
-              }}
-              className=" w-[100%] z-0 top-[30px] relative flex justify-center items-center "
-            >
+            <div className=" w-[100%] z-0 top-[30px] relative flex justify-center items-center ">
               <div className=" absolute border border-[#333333] rounded-full h-[200px] w-[200px] animate-pulse mt-52" />
               <div className=" absolute border border-[#333333] rounded-full h-[400px] w-[400px] animate-pulse mt-52" />
-              <div className=" h-[450px] w-[450px] absolute border border-white rounded-full md:h-[450px] md:w-[450px] mt-52 animate-pulse" />
-            </motion.div>
+              <div className=" h-[400px] w-[400px] absolute border border-white rounded-full lg:h-[450px] lg:w-[450px] mt-52 animate-pulse" />
+            </div>
             <CountdownCircleTimer
               key={exerciseIndex}
               isPlaying={timerState}
@@ -226,7 +212,11 @@ function Canvas2({ workout, session, likes }) {
               colors={["cyan"]}
             >
               {({ remainingTime }) => {
-                return remainingTime;
+                const hours = Math.floor(remainingTime / 3600);
+                const minutes = Math.floor((remainingTime % 3600) / 60);
+                const seconds = remainingTime % 60;
+
+                return `${hours}:${minutes}:${seconds}`;
               }}
             </CountdownCircleTimer>
 

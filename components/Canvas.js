@@ -12,7 +12,7 @@ function Canvas({ workout, session, likes }) {
   let [exerciseIndex, setExerciseIndex] = useState(0);
   let [songIndex, setSongIndex] = useState(0);
   let [song, setSong] = useState(
-    getAudioURl(workout.playlist.songs[songIndex].audio)
+    getAudioURl(workout?.playlist?.songs[songIndex]?.audio)
   );
 
   let [contextState, setContextState] = useState("");
@@ -200,7 +200,11 @@ function Canvas({ workout, session, likes }) {
               colors={["cyan"]}
             >
               {({ remainingTime }) => {
-                return remainingTime;
+                const hours = Math.floor(remainingTime / 3600);
+                const minutes = Math.floor((remainingTime % 3600) / 60);
+                const seconds = remainingTime % 60;
+
+                return `${hours}:${minutes}:${seconds}`;
               }}
             </CountdownCircleTimer>
 
@@ -245,7 +249,7 @@ function Canvas({ workout, session, likes }) {
           </div>
           <div className="flex flex-col items-center justify-start space-y-4">
             <h1 className="text-6xl font-extrabold pt-20">
-              {workout.exercises[exerciseIndex].title}
+              {workout?.exercises[exerciseIndex]?.title}
             </h1>
 
             <audio
@@ -270,7 +274,7 @@ function Canvas({ workout, session, likes }) {
             <h1 className="text-xs font-extrabold pt-20">
               <span> Next Up:</span>
               {exerciseIndex + 1 < workout.exercises.length &&
-                workout.exercises[exerciseIndex + 1].title}
+                workout?.exercises[exerciseIndex + 1]?.title}
             </h1>
           </div>
         </div>
